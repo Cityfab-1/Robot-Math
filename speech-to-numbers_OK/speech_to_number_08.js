@@ -88,13 +88,13 @@ function operate(valueXstudent, valueZteacher1, operatorZteacher1) {
     return +valueXstudent * +valueZteacher1;
   }
 }
-function operate(valueXstudent, valueZteacher2, operatorZteacher2) {
-  if (operatorZteacher1 == 'choose2') {
+function operate(resultYrobot1, valueZteacher2, operatorZteacher2) {
+  if (operatorZteacher2 == 'choose2') {
     alert("You must choose a second operator!");
-  } else if (operatorZteacher1 == 'addition2') {
-    return +valueXstudent + +valueZteacher1;
-  } else if (operatorZteacher1 == 'subtraction2') {
-    return +valueXstudent - +valueZteacher1;
+  } else if (operatorZteacher2 == 'addition2') {
+    return +resultYrobot1 + +valueZteacher2;
+  } else if (operatorZteacher2 == 'subtraction2') {
+    return +resultYrobot1 - +valueZteacher2;
   }
 }
 
@@ -104,6 +104,12 @@ function validate(value) {
     return 0;
   } else if (isNaN(value)) {
     alert("Must be a Number");
+    return 0;
+  } else if (isNaN(resultYrobot1)) {
+    alert("resultYrobot1 must be a Number");
+    return 0;
+  } else if (isNaN(resultYrobot2)) {
+    alert("resultYrobot2 must be a Number");
     return 0;
   } else return value;
 }
