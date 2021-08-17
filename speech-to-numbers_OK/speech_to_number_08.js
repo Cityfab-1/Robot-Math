@@ -115,7 +115,7 @@ function validate(resultYrobot1) {
   } else if (isNaN(resultYrobot1)) {
     alert("resultYrobot1 must be a Number");
     return 0;
-  } else return value;
+  } else return resultYrobot1;
 }
 
 function validate(resultYrobot2) {
@@ -125,5 +125,5 @@ function validate(resultYrobot2) {
   } else if (isNaN(resultYrobot2)) {
     alert("resultYrobot2 must be a Number");
     return 0;
-  } else return value;
+  } else return resultYrobot2;
 }
