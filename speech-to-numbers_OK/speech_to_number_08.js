@@ -105,8 +105,22 @@ function validate(value) {
   } else if (isNaN(value)) {
     alert("Must be a Number");
     return 0;
+  } else return value;
+}
+
+function validate(resultYrobot1) {
+  if (resultYrobot1 == null || resultYrobot1 == "") {
+    alert("Required Field");
+    return 0;
   } else if (isNaN(resultYrobot1)) {
     alert("resultYrobot1 must be a Number");
+    return 0;
+  } else return value;
+}
+
+function validate(resultYrobot2) {
+  if (resultYrobot2 == null || resultYrobot2 == "") {
+    alert("Required Field");
     return 0;
   } else if (isNaN(resultYrobot2)) {
     alert("resultYrobot2 must be a Number");
