@@ -52,11 +52,11 @@ recognition.onresult = function(event) {
   var operatorZteacher2 = document.getElementById('operatorZteacher2').value;
   var valueZteacher1 = parseFloat(validate(document.getElementById("valueZteacher1").value.trim()));
   var valueZteacher2 = parseFloat(validate(document.getElementById("valueZteacher2").value.trim()));
-  var resultYrobot = operate(valueXstudent, valueZteacher1, operatorZteacher1);
-  var resultYrobotRound = parseFloat(document.getElementById("resultYrobotBig").innerHTML = resultYrobotRound);
-  // var resultYrobotRound = parseFloat(resultYrobot).toFixed(2);
+  var resultYrobot1 = operate(valueXstudent, valueZteacher1, operatorZteacher1);
+  var resultYrobot2 = operate(resultYrobot1, valueZteacher2, operatorZteacher2);
+  var resultYrobotRound = parseFloat(resultYrobot2).toFixed(2);
   // var resultYrobotRound =  Math.round((resultYrobot + Number.EPSILON) * 100.0) / 100.0;
-  // document.getElementById("resultYrobotBig").innerHTML = resultYrobotRound;
+  document.getElementById("resultYrobotBig").innerHTML = resultYrobotRound;
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
 }
