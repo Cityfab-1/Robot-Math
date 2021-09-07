@@ -60,6 +60,12 @@ recognition.onresult = function(event) {
   document.getElementById("IDresultYrobotBig").innerHTML = resultYrobotRound;
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
+  
+  console.log('line 51', valueXstudent);
+  console.log('line 52', operatorZteacher1);
+  console.log('line 54', valueZteacher1);
+  console.log('line 56', resultYrobot1);
+  console.log('line 58', resultYrobotRound);
 }
 
 recognition.onspeechend = function() {
