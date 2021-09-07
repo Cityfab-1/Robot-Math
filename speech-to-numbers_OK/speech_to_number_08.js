@@ -50,13 +50,13 @@ recognition.onresult = function(event) {
   // ++++++++++++++++++++++++++++++ Math ++++++++++++++++++++++++++++++++++ //
   document.getElementById("IDvalueXstudentBig").innerHTML = valueXstudent;
   var operatorZteacher1 = document.getElementById('IDoperatorZteacher1').value;
-  var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
+  //// var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
   var valueZteacher1 = parseFloat(validate(document.getElementById("IDvalueZteacher1").value.trim()));
-  var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
+  //// var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
   var resultYrobot1 = operate(valueXstudent, valueZteacher1, operatorZteacher1);
-  var resultYrobot2 = operate(resultYrobot1, valueZteacher2, operatorZteacher2);
-  //// var resultYrobotRound = parseFloat(resultYrobot2).toFixed(2);
-  var resultYrobotRound = parseFloat(Math.round((resultYrobot2 + Number.EPSILON) * 100.0) / 100.0);
+  //// var resultYrobot2 = operate(resultYrobot1, valueZteacher2, operatorZteacher2);
+  var resultYrobotRound = parseFloat(resultYrobot1).toFixed(2);
+  //// var resultYrobotRound = parseFloat(Math.round((resultYrobot2 + Number.EPSILON) * 100.0) / 100.0);
   document.getElementById("IDresultYrobotBig").innerHTML = resultYrobotRound;
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
@@ -89,15 +89,16 @@ function operate(valueXstudent, valueZteacher1, operatorZteacher1) {
     return +valueXstudent * +valueZteacher1;
   }
 }
-function operate(resultYrobot1, valueZteacher2, operatorZteacher2) {
-  if (operatorZteacher2 == 'choose2') {
-    alert("You must choose a second operator!");
-  } else if (operatorZteacher2 == 'addition2') {
-    return +resultYrobot1 + +valueZteacher2;
-  } else if (operatorZteacher2 == 'subtraction2') {
-    return +resultYrobot1 - +valueZteacher2;
-  }
-}
+////
+//// function operate(resultYrobot1, valueZteacher2, operatorZteacher2) {
+  //// if (operatorZteacher2 == 'choose2') {
+    //// alert("You must choose a second operator!");
+  //// } else if (operatorZteacher2 == 'addition2') {
+    //// return +resultYrobot1 + +valueZteacher2;
+  //// } else if (operatorZteacher2 == 'subtraction2') {
+    //// return +resultYrobot1 - +valueZteacher2;
+  //// }
+//// }
 
 function validate(value) {
   if (value == null || value == "") {
@@ -109,22 +110,22 @@ function validate(value) {
   } else return value;
 }
 
-function validate(resultYrobot1) {
-  if (resultYrobot1 == null || resultYrobot1 == "") {
-    alert("Required Field");
-    return 0;
-  } else if (isNaN(resultYrobot1)) {
-    alert("resultYrobot1 must be a Number");
-    return 0;
-  } else return resultYrobot1;
-}
+//// function validate(resultYrobot1) {
+  //// if (resultYrobot1 == null || resultYrobot1 == "") {
+    //// alert("Required Field");
+    //// return 0;
+ ////  } else if (isNaN(resultYrobot1)) {
+  ////   alert("resultYrobot1 must be a Number");
+  ////   return 0;
+ ////  } else return resultYrobot1;
+//// }
 
-function validate(resultYrobot2) {
-  if (resultYrobot2 == null || resultYrobot2 == "") {
-    alert("Required Field");
-    return 0;
-  } else if (isNaN(resultYrobot2)) {
-    alert("resultYrobot2 must be a Number");
-    return 0;
-  } else return resultYrobot2;
-}
+//// function validate(resultYrobot2) {
+ ////  if (resultYrobot2 == null || resultYrobot2 == "") {
+ ////    alert("Required Field");
+ ////    return 0;
+ ////  } else if (isNaN(resultYrobot2)) {
+ ////    alert("resultYrobot2 must be a Number");
+////     return 0;
+////   } else return resultYrobot2;
+//// }
