@@ -53,7 +53,7 @@ recognition.onresult = function(event) {
   //// var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
   var valueZteacher1 = parseFloat(validate(document.getElementById("IDvalueZteacher1").value.trim()));
   //// var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
-  var resultYrobot1 = operate(valueXstudent, valueZteacher1, operatorZteacher1);
+  var resultYrobot1 = operate1(valueXstudent, valueZteacher1, operatorZteacher1);
   //// var resultYrobot2 = operate(resultYrobot1, valueZteacher2, operatorZteacher2);
   var resultYrobotRound = parseFloat(resultYrobot1).toFixed(2);
   //// var resultYrobotRound = parseFloat(Math.round((resultYrobot2 + Number.EPSILON) * 100.0) / 100.0);
@@ -82,7 +82,7 @@ recognition.onerror = function(event) {
 
 // ++++++++++++++++++++++++++++++ Math ++++++++++++++++++++++++++++++++++ //
 // + before value is a way to convert a string to a number https://stackoverflow.com/questions/8377410/addition-is-not-working-in-javascript //
-function operate(valueXstudent, valueZteacher1, operatorZteacher1) {
+function operate1(valueXstudent, valueZteacher1, operatorZteacher1) {
   if (operatorZteacher1 == 'choose1') {
     alert("You must choose a first operator!");
   } else if (operatorZteacher1 == 'addition1') {
