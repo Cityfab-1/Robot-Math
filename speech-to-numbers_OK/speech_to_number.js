@@ -103,7 +103,7 @@ function operate2(resultYrobot1, valueZteacher2, operatorZteacher2) {
     alert("You must choose a second operator!");
   } else if (operatorZteacher2 == 'addition2') {
     return +resultYrobot1 + +valueZteacher2;
-  else if (operatorZteacher2 == 'subtraction2') {
+  } else if (operatorZteacher2 == 'subtraction2') {
     return +resultYrobot1 - +valueZteacher2;
   }
 }
