@@ -60,6 +60,7 @@ recognition.onresult = function(event) {
   var resultYrobot12Round = parseFloat(resultYrobot12).toFixed(2);
   //// var resultYrobotRound = parseFloat(Math.round((resultYrobot2 + Number.EPSILON) * 100.0) / 100.0);
   document.getElementById("IDresultYrobotBig").innerHTML = resultYrobot12Round;
+  document.getElementById("text-input").innerHTML = resultYrobot12Round;
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
   
