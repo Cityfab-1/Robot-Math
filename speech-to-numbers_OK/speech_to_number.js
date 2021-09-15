@@ -50,14 +50,16 @@ recognition.onresult = function(event) {
   // ++++++++++++++++++++++++++++++ Math ++++++++++++++++++++++++++++++++++ //
   document.getElementById("IDvalueXstudentBig").innerHTML = valueXstudent;
   var operatorZteacher1 = document.getElementById('IDoperatorZteacher1').value;
-  //// var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
   var valueZteacher1 = parseFloat(validate(document.getElementById("IDvalueZteacher1").value.trim()));
-  //// var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
   var resultYrobot1 = operate1(valueXstudent, valueZteacher1, operatorZteacher1);
-  //// var resultYrobot2 = operate(resultYrobot1, valueZteacher2, operatorZteacher2);
-  var resultYrobotRound = parseFloat(resultYrobot1).toFixed(2);
+  
+  var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
+  var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
+  var resultYrobot12 = operate2(resultYrobot1, valueZteacher2, operatorZteacher2);
+  
+  var resultYrobot12Round = parseFloat(resultYrobot12).toFixed(2);
   //// var resultYrobotRound = parseFloat(Math.round((resultYrobot2 + Number.EPSILON) * 100.0) / 100.0);
-  document.getElementById("IDresultYrobotBig").innerHTML = resultYrobotRound;
+  document.getElementById("IDresultYrobotBig").innerHTML = resultYrobot12Round;
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
   
@@ -96,15 +98,15 @@ function operate1(valueXstudent, valueZteacher1, operatorZteacher1) {
   }
 }
 ////
-//// function operate(resultYrobot1, valueZteacher2, operatorZteacher2) {
-  //// if (operatorZteacher2 == 'choose2') {
-    //// alert("You must choose a second operator!");
-  //// } else if (operatorZteacher2 == 'addition2') {
-    //// return +resultYrobot1 + +valueZteacher2;
-  //// } else if (operatorZteacher2 == 'subtraction2') {
-    //// return +resultYrobot1 - +valueZteacher2;
-  //// }
-//// }
+function operate2(resultYrobot1, valueZteacher2, operatorZteacher2) {
+  if (operatorZteacher2 == 'choose2') {
+    alert("You must choose a second operator!");
+  } else if (operatorZteacher2 == 'addition2') {
+    return +resultYrobot1 + +valueZteacher2;
+  else if (operatorZteacher2 == 'subtraction2') {
+    return +resultYrobot1 - +valueZteacher2;
+  }
+}
 
 function validate(value) {
   if (value == null || value == "") {
