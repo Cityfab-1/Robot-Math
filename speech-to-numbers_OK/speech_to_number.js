@@ -64,11 +64,25 @@ recognition.onresult = function(event) {
   // document.getElementById("resultYrobotBig").innerHTML = resultYrobot.toFixed(2);
   // document.getElementById("text-input").innerHTML = resultYrobot.toFixed(2);
   
-  console.log('line 51', valueXstudent);
-  console.log('line 52', operatorZteacher1);
-  console.log('line 54', valueZteacher1);
-  console.log('line 56', resultYrobot1);
-  console.log('line 58', resultYrobot12Round);
+  //// console.log('line 58', resultYrobot12Round);
+
+  //setup before functions
+let typingTimer;                //timer identifier
+let doneTypingInterval = 4000;  //time in ms (5 seconds)
+let myInput = document.getElementById('text-input');
+
+//on keyup, start the countdown
+if (myInput.value) {
+      clearTimeout(typingTimer);
+      typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+    speak();
+}
+  
 }
 
 recognition.onspeechend = function() {
