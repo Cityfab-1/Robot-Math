@@ -72,10 +72,12 @@ let doneTypingInterval = 4000;  //time in ms (5 seconds)
 let myInput = document.getElementById('text-input');
 
 //on keyup, start the countdown
-if (myInput.value) {
-      clearTimeout(typingTimer);
-      typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    
+//on keyup, start the countdown
+myInput.addEventListener('keyup', () => {
+    clearTimeout(typingTimer);
+    if (myInput.value) {
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    }
 });
 
 //user is "finished typing," do something
