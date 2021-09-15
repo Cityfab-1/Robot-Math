@@ -67,7 +67,7 @@ recognition.onresult = function(event) {
   console.log('line 52', operatorZteacher1);
   console.log('line 54', valueZteacher1);
   console.log('line 56', resultYrobot1);
-  console.log('line 58', resultYrobotRound);
+  console.log('line 58', resultYrobot12Round);
 }
 
 recognition.onspeechend = function() {
