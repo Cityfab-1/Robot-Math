@@ -81,6 +81,7 @@ recognition.onresult = function(event) {
 
 recognition.onspeechend = function() {
   recognition.stop();
+        console.log('line 84 - recognition stop');
     //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
   setTimeout(function() {
     var textInput = document.getElementById('text-input').value;
