@@ -79,11 +79,11 @@ recognition.onresult = function(event) {
   
  //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
  //// setTimeout(function() {
-    var textInput = document.getElementById('text-input').value;
-    document.getElementById('text-input').addEventListener('blur input', function() {
-      console.log('line 84', textInput);
-  speak();
-});
+ ////   var textInput = document.getElementById('text-input').value;
+ ////   document.getElementById('text-input').addEventListener('blur input', function() {
+ ////     console.log('line 84', textInput);
+ //// speak();
+//// });
   //// }, 200);
   
 }
