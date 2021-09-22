@@ -83,7 +83,7 @@ recognition.onspeechend = function() {
   recognition.stop();
     //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
   setTimeout(function() {
-        if ($("#text-input").val().length > 0) {
+        if (("#text-input").val().length > 0) {
          //// if ($("#inputID:-webkit-autofill").val().length > 0) {
             // YOUR CODE
               speak();
