@@ -66,24 +66,16 @@ recognition.onresult = function(event) {
   
   //// console.log('line 58', resultYrobot12Round);
 
-  //setup before functions
-let typingTimer;                //timer identifier
-let doneTypingInterval = 4000;  //time in ms (5 seconds)
-let myInput = document.getElementById('text-input');
-
-//on keyup, start the countdown
-//on keyup, start the countdown
-myInput.addEventListener('keyup', () => {
-    clearTimeout(typingTimer);
-    if (myInput.value) {
-        typingTimer = setTimeout(doneTyping, doneTypingInterval);
-    }
+  //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
+  $(function() {
+    setTimeout(function() {
+        if ($("#text-input").val().length > 0) {
+         //// if ($("#inputID:-webkit-autofill").val().length > 0) {
+            // YOUR CODE
+              speak();
+        }
+    }, 200);
 });
-
-//user is "finished typing," do something
-function doneTyping () {
-    speak();
-}
   
 }
 
