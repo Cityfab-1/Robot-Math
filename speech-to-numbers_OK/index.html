@@ -84,11 +84,12 @@
             <textarea name="text-box" id="text-input" class="form-control form-control-lg" onchange="onInputSpeak()" placeholder="Type anything..."></textarea>
            <!-- Write something in the text field to trigger a function. -->
 <!-- <input name="text-box" type="text" id="text-input" class="form-control form-control-lg" oninput="onInputSpeak()"> -->
-<script>
-function onInputSpeak() {
-  speak();
-}
-</script>
+            <script>
+              document.getElementById("text-input").addEventListener("input", onInputSpeak);
+              function onInputSpeak() {
+                speak();
+              }
+            </script>
           </div>
           <div class="row">
             <div class="col-md-6">
