@@ -83,9 +83,9 @@ recognition.onspeechend = function() {
   recognition.stop();
     //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
   setTimeout(function() {
-        $('#text-input').on('blur input', function() {
-          speak();
-        });
+    document.getElementById("text-input").addEventListener("blur input", function() {
+  speak();
+});
     }, 200);
 }
 
