@@ -67,20 +67,28 @@ recognition.onresult = function(event) {
   //// console.log('line 58', resultYrobot12Round);
 
   //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
-  $(function() {
-    setTimeout(function() {
+   //// $(function() {
+     //// setTimeout(function() {
+      ////    if ($("#text-input").val().length > 0) {
+         //// if ($("#inputID:-webkit-autofill").val().length > 0) {
+            // YOUR CODE
+        ////        speak();
+      ////    }
+  ////    }, 200);
+ //// });
+  
+}
+
+recognition.onspeechend = function() {
+  recognition.stop();
+    //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
+  setTimeout(function() {
         if ($("#text-input").val().length > 0) {
          //// if ($("#inputID:-webkit-autofill").val().length > 0) {
             // YOUR CODE
               speak();
         }
     }, 200);
-});
-  
-}
-
-recognition.onspeechend = function() {
-  recognition.stop();
 }
 
 recognition.onnomatch = function(event) {
