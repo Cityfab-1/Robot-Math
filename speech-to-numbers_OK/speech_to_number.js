@@ -83,13 +83,13 @@ recognition.onspeechend = function() {
   recognition.stop();
         console.log('line 84 - recognition stop');
     //// AUTO DETECT FIELD IS EMPTY OR NOT -> START NUMBER TO SPEECH
-  setTimeout(function() {
+ //// setTimeout(function() {
     var textInput = document.getElementById('text-input').value;
     document.getElementById('text-input').addEventListener('blur input', function() {
       console.log('line 87', textInput);
   speak();
 });
-    }, 200);
+  ////  }, 200);
 }
 
 recognition.onnomatch = function(event) {
