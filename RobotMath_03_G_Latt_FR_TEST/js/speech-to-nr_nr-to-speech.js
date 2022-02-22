@@ -44,50 +44,61 @@ recognition.onresult = function(event) {
   bg.style.backgroundColor = valueXstudent;
   console.log('Confidence: ' + event.results[0][0].confidence);
 
-  //// MATH - speech to math to result ////
   document.getElementById("IDvalueXstudentBig").innerHTML = valueXstudent;
-  var operatorZteacher1 = document.getElementById('IDoperatorZteacher1').value;
-  var valueZteacher1 = parseFloat(validate(document.getElementById("IDvalueZteacher1").value.trim()));
-  var resultYrobot1 = operate1(valueXstudent, valueZteacher1, operatorZteacher1);
+  document.getElementById("IDvalueTeacher1").value = valueXstudent;
 
-  var operatorZteacher2 = document.getElementById('IDoperatorZteacher2').value;
-  var valueZteacher2 = parseFloat(validate(document.getElementById("IDvalueZteacher2").value.trim()));
-  var resultYrobot1and2 = operate2(resultYrobot1, valueZteacher2, operatorZteacher2);
-  var resultYrobot1and2Round = parseFloat(resultYrobot1and2).toFixed(2);
-  //// verwijder .00 en .?0
-  //// var a=strng.replace(/.00\s*$/, "");
-  resultYrobot1and2Rounder = Math.round(((resultYrobot1and2Round * resultYrobot1and2Round) / resultYrobot1and2Round) * 100.) / 100.;
-  //// console.log('line 58', resultYrobot1and2Round);
-  
-  /*
-  function VoiceLangDetection(VoiceLangAction) {
-  if (selectedVoiceLang === "fr-FR" || selectedVoiceLang === "nl-NL") {
-  resultYrobot1and2RounderCorrect = (resultYrobot1and2Rounder.replace(".", ","));
-  document.getElementById('IDtextInput').innerHTML = resultYrobot1and2RounderCorrect;
+  //// DO THE MATH (function) ////
+  mathResult();
+
+  // ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+  function mathResult(){
+    //// var valueTeacher1 = document.getElementById('IDvalueTeacher1').value;
+    var valueTeacher1 = valueXstudent;
+    var operatorTeacher1 = document.getElementById('IDoperatorTeacher1').value;
+    var valueTeacher2 = document.getElementById('IDvalueTeacher2').value;
+
+    //// document.getElementById('result').innerHTML = parseFloat(value1) + parseFloat(value2);
+
+    var valueTeacher1Num = parseFloat(valueTeacher1).toFixed(2);
+    var valueTeacher2Num = parseFloat(valueTeacher2).toFixed(2);
+
+    var stringResult = valueTeacher1Num + ' ' + operatorTeacher1 + ' ' + valueTeacher2Num;
+
+    // take out anything other than digits, (), -+/* and .
+    // https://stackoverflow.com/questions/6479236/calculate-string-value-in-javascript-not-using-eval
+    var stringResultReplace = stringResult.replace(/[^-()\d/*+.]/g, '');
+    //// alert(eval(str));
+    stringResultEval = eval(stringResultReplace);
+    document.getElementById('IDmathResult').innerHTML = stringResultEval;
+
+    //// MISSCHIEN NOG NODIG ////
+    //// resultYrobot1and2Rounder = Math.round(((resultYrobot1and2Round * resultYrobot1and2Round) / resultYrobot1and2Round) * 100.) / 100.;
+  }
+
+  //// VALIDATOR //// ! OPNIEUW INSTELLEN INDIEN BOVENSTAANDE WERKT !
+  function validate(value) {
+    if (value == null || value == "") {
+      alert("Required Field");
+      return 0;
+    } else if (isNaN(value)) {
+      alert("Must be a Number");
+      return 0;
+    } else return value;
+  }
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+  // ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
+
+  document.getElementById('IDmathResult').innerHTML = stringResultEval;
   setTimeout(function(){
-  speak();
-}, 2000);
-} else if (selectedVoiceLang !== "fr-FR" || selectedVoiceLang !== "nl-NL") {
-resultYrobot1and2RounderCorrect = resultYrobot1and2Rounder;
-document.getElementById('IDtextInput').innerHTML = resultYrobot1and2RounderCorrect;
-setTimeout(function(){
-speak();
-}, 2000);
-}
-VoiceLangAction();
-}
-*/
-
-document.getElementById('IDtextInput').innerHTML = resultYrobot1and2Rounder;
-setTimeout(function(){
-  speak();
-}, 2000);
+    speak();
+  }, 2000);
 
 }
 /* ERROR [Deprecation] speechSynthesis.speak() without user activation is no longer allowed since M71, around December 2018. See https://www.chromestatus.com/feature/5687444770914304 for more details
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var beginText = "Hi, i am Nautilius, the first iteration from Robot Math. Please fill in the Operator and Number fields, then click Listen.";
-document.getElementById('IDtextInput').innerHTML = beginText;
+document.getElementById('IDmathResult').innerHTML = beginText;
 setTimeout(function(){
 document.getElementById("ButtonSpeak").click();
 }, 4000); // Wait x seconds
@@ -95,78 +106,41 @@ document.getElementById("ButtonSpeak").click();
 
 recognition.onspeechend = function() {
   recognition.stop();
-  document.getElementById("IDtextInput").innerHTML = "S'il vous plaît, donnez-moi un nouveau numéro !";
+  document.getElementById("IDmathResult").innerHTML = "S'il vous plaît, donnez-moi un nouveau numéro !";
   setTimeout(function(){
     speak();
-      recognition.stop();
     //// document.getElementById("ButtonSpeak").click();
-  }, 2000); // Wait x seconds
+  }, 10000); // Wait x seconds
   setTimeout(function(){
     recognition.start();
-}, 4000); // Wait x seconds
+}, 12000); // Wait x seconds
 }
 
 recognition.onnomatch = function(event) {
+  recognition.stop();
   diagnostic.textContent = "Je n'ai pas reconnu ce numéro.";
-  document.getElementById("IDtextInput").innerHTML = "Je n'ai pas reconnu ce numéro.";
+  document.getElementById("IDmathResult").innerHTML = "Je n'ai pas reconnu ce numéro.";
   setTimeout(function(){
     speak();
     //// document.getElementById("ButtonSpeak").click();
-  }, 2000); // Wait x seconds
+  }, 1000); // Wait x seconds
+  setTimeout(function(){
+    recognition.start();
+}, 2000); // Wait x seconds
 }
 
 recognition.onerror = function(event) {
+  recognition.stop();
   diagnostic.textContent = "Une erreur s'est produite lors de la reconnaissance : " + event.error;
-  document.getElementById("IDtextInput").innerHTML = "Une erreur s'est produite lors de la reconnaissance : " + event.error;
+  document.getElementById("IDmathResult").innerHTML = "Une erreur s'est produite lors de la reconnaissance : " + event.error;
   setTimeout(function(){
     speak();
     //// document.getElementById("ButtonSpeak").click();
-  }, 2000); // Wait x seconds
+  }, 1000); // Wait x seconds
 }
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 // ++++++++++++++++++++++++++++++ SPEECH TO NUMBER ++++++++++++++++++++++++++++++++++ //
 
-
-// ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
-//// MATH operator 1 ////
-// + before value is a way to convert a string to a number https://stackoverflow.com/questions/8377410/addition-is-not-working-in-javascript //
-function operate1(valueXstudent, valueZteacher1, operatorZteacher1) {
-  if (operatorZteacher1 == 'choose1') {
-    alert("You must choose a first operator!");
-  } else if (operatorZteacher1 == 'addition1') {
-    return +valueXstudent + +valueZteacher1;
-  } else if (operatorZteacher1 == 'subtraction1') {
-    return +valueXstudent - +valueZteacher1;
-  } else if (operatorZteacher1 == 'division1') {
-    return +valueXstudent / +valueZteacher1;
-  } else if (operatorZteacher1 == 'multiplication1') {
-    return +valueXstudent * +valueZteacher1;
-  }
-}
-//// MATH operator 2 ////
-function operate2(resultYrobot1, valueZteacher2, operatorZteacher2) {
-  if (operatorZteacher2 == 'choose2') {
-    alert("You must choose a second operator!");
-  } else if (operatorZteacher2 == 'addition2') {
-    return +resultYrobot1 + +valueZteacher2;
-  } else if (operatorZteacher2 == 'subtraction2') {
-    return +resultYrobot1 - +valueZteacher2;
-  }
-}
-
-//// VALIDATOR ////
-function validate(value) {
-  if (value == null || value == "") {
-    alert("Required Field");
-    return 0;
-  } else if (isNaN(value)) {
-    alert("Must be a Number");
-    return 0;
-  } else return value;
-}
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
-// ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
 
 
 // ++++++++++++++++++++++++++++++ NUMBER TO SPEECH ++++++++++++++++++++++++++++++++++ //
@@ -175,8 +149,8 @@ const synth = window.speechSynthesis;
 
 // DOM Elements
 const textForm = document.querySelector('form');
-const textInput = document.querySelector('#IDtextInput');
-const voiceSelect = document.querySelector('#voice-select');
+const textInput = document.querySelector('#IDmathResult');
+const voiceSelect = document.querySelector('#IDvoiceSelect');
 const rate = document.querySelector('#rate');
 const rateValue = document.querySelector('#rate-value');
 const pitch = document.querySelector('#pitch');
@@ -269,9 +243,10 @@ const speak = () => {
 // EVENT LISTENERS
 //// HINTS ===> MAKEN IN ENGELS EN FRANS NAARGELANG DE GEKOZEN TAAL?
 //// hints.innerHTML = 'Please fill in the "Operator" and "Number" fields, then click "Listen".';
-IDtextInput.innerHTML = "Bonjour, je suis un robot qui parle les maths.";
+IDmathResult.innerHTML = "Bonjour, je suis un robot qui parle les maths.";
 setTimeout(function(){
-  //// speak();
+  document.getElementById('IDvoiceSelect').selectedIndex = 4;
+  speak();
   //// document.getElementById("ButtonSpeak").click();
 }, 4000); // Wait x seconds
 
@@ -321,20 +296,20 @@ $('#some-id').trigger('click');
 */
 //// AUTO CLICK TEST ! ////
 //// AUTO SPEAK TEST ! ////
-//// https://stackoverflow.com/questions/1847893/js-events-hooking-on-value-change-event-on-IDtextInputs
+//// https://stackoverflow.com/questions/1847893/js-events-hooking-on-value-change-event-on-IDmathResults
 // Put a first value
-//////// document.getElementById("IDtextInput").value="Hi, i am Nautilius, the first iteration from Robot Math";
+//////// document.getElementById("IDmathResult").value="Hi, i am Nautilius, the first iteration from Robot Math";
 //// setTimeout(function(){
 //// speak();
 ////}, 4000); // Wait x seconds
 
 // Detect and 'remember' old value every x seconds
 //// setInterval(function() { // Test if really needed
-//// var oldVal = $('#IDtextInput').val();
+//// var oldVal = $('#IDmathResult').val();
 //// //// setTimeout(function(){
 // Your script that changes the value
-// document.getElementById("IDtextInput").value="the first iteration from Robot Math";
-////  if(oldVal != $('#IDtextInput').val())
+// document.getElementById("IDmathResult").value="the first iteration from Robot Math";
+////  if(oldVal != $('#IDmathResult').val())
 ////   {
 // The value has changed, do something
 //// console.log("Value was changed");
@@ -343,7 +318,7 @@ $('#some-id').trigger('click');
 //// }, 1000); // Wait x seconds
 //// }, 2000); // Repeat every x seconds // Test if really needed
 
-//// $("body").on('change propertychange input paste ', '#IDtextInput', function(){    // 3rd way
+//// $("body").on('change propertychange input paste ', '#IDmathResult', function(){    // 3rd way
 //// console.log("Value was changed again");
 ////  speak();
 //// });
