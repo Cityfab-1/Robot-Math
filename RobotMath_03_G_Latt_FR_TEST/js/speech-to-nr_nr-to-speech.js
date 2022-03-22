@@ -72,6 +72,25 @@ recognition.onresult = function(event) {
     stringResultEval = eval(stringResultReplace);
     document.getElementById('IDmathResult').innerHTML = stringResultEval;
 
+    /*
+    //// zero/Zero/ZERO ---> 0 ////
+    //// TEST //// let text = "Visit zero nero";
+    let pattern1 = /zero/i;
+    let result1 = text.match(pattern1);
+    //// let result2 = result1.replace(pattern1,"0");
+    if (result1 == "zero") {
+      result2 = 0;
+    } else if (result1 == "Zero") {
+      result2 = 0;
+    } else {
+      result2 = "";
+    }
+    */
+    
+document.getElementById("result1").innerHTML = result1;
+document.getElementById("result2").innerHTML = result2;
+</script>
+
     //// MISSCHIEN NOG NODIG ////
     //// resultYrobot1and2Rounder = Math.round(((resultYrobot1and2Round * resultYrobot1and2Round) / resultYrobot1and2Round) * 100.) / 100.;
   }
