@@ -78,13 +78,17 @@ recognition.onresult = function(event) {
     let stringResultLast1 = stringResultLast.match(pattern1);
     if (stringResultLast1 == "zero") {
       stringResultLast2 = 0;
-    } else if (stringResultLast1 == "Zero") {
+    } else if (stringResultLast1 == "zéro") {
       stringResultLast2 = 0;
-    } else if (stringResultLast1 == "ZERO") {
-      stringResultLast2 = 0;
-    } else {
-      stringResultLast2 = stringResultLast;
-    }
+      } else if (stringResultLast1 == "Zero") {
+        stringResultLast2 = 0;
+        } else if (stringResultLast1 == "Zéro") {
+          stringResultLast2 = 0;
+          } else if (stringResultLast1 == "ZERO") {
+            stringResultLast2 = 0;
+            } else {
+              stringResultLast2 = stringResultLast;
+            }
     //// zero/Zero/ZERO ---> 0 ////
     document.getElementById('IDmathResult').innerHTML = stringResultLast2;
 
