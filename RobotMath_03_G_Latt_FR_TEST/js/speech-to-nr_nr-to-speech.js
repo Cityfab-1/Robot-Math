@@ -74,23 +74,22 @@ recognition.onresult = function(event) {
 
     //// zero/Zero/ZERO ---> 0 ////
     let stringResultLast = stringResultEval;
-    let pattern1 = /zero/i;
-    let stringResultLast1 = stringResultLast.match(pattern1);
-    if (stringResultLast1 == "zero") {
-      stringResultLast2 = 0;
-    } else if (stringResultLast1 == "zéro") {
-      stringResultLast2 = 0;
-      } else if (stringResultLast1 == "Zero") {
-        stringResultLast2 = 0;
-        } else if (stringResultLast1 == "Zéro") {
-          stringResultLast2 = 0;
-          } else if (stringResultLast1 == "ZERO") {
-            stringResultLast2 = 0;
-            } else {
-              stringResultLast2 = stringResultLast;
-            }
-    //// zero/Zero/ZERO ---> 0 ////
-    document.getElementById('IDmathResult').innerHTML = stringResultLast2;
+ let stringResultLastNorm = stringResultLast.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+//// zero/Zero/ZERO ---> 0 ////
+   //// let stringResultLast = stringResultEval;
+   let pattern1 = /zero/i;
+   let stringResultLast1 = stringResultLastNorm.match(pattern1);
+   if (stringResultLast1 == "zero") {
+     stringResultLast2 = 0;
+   } else if (stringResultLast1 == "Zero") {
+         stringResultLast2 = 0;
+         } else if (stringResultLast1 == "ZERO") {
+           stringResultLast2 = 0;
+           } else {
+             stringResultLast2 = stringResultLastNorm;
+           }
+   //// zero/Zero/ZERO ---> 0 ////
+   document.getElementById('IDmathResult').innerHTML = stringResultLast2;
 
 
     //// MISSCHIEN NOG NODIG ////
