@@ -70,26 +70,24 @@ recognition.onresult = function(event) {
     var stringResultReplace = stringResult.replace(/[^-()\d/*+.]/g, '');
     //// alert(eval(str));
     stringResultEval = eval(stringResultReplace);
-    document.getElementById('IDmathResult').innerHTML = stringResultEval;
+    //// document.getElementById('IDmathResult').innerHTML = stringResultEval;
 
-    /*
     //// zero/Zero/ZERO ---> 0 ////
-    //// TEST //// let text = "Visit zero nero";
+    let stringResultLast = stringResultEval;
     let pattern1 = /zero/i;
-    let result1 = text.match(pattern1);
-    //// let result2 = result1.replace(pattern1,"0");
-    if (result1 == "zero") {
-      result2 = 0;
-    } else if (result1 == "Zero") {
-      result2 = 0;
+    let stringResultLast1 = stringResultLast.match(pattern1);
+    if (stringResultLast1 == "zero") {
+      stringResultLast2 = 0;
+    } else if (stringResultLast1 == "Zero") {
+      stringResultLast2 = 0;
+    } else if (stringResultLast1 == "ZERO") {
+      stringResultLast2 = 0;
     } else {
-      result2 = "";
+      stringResultLast2 = stringResultLast;
     }
-    */
-    
-document.getElementById("result1").innerHTML = result1;
-document.getElementById("result2").innerHTML = result2;
-</script>
+    //// zero/Zero/ZERO ---> 0 ////
+    document.getElementById('IDmathResult').innerHTML = stringResultLast2;
+
 
     //// MISSCHIEN NOG NODIG ////
     //// resultYrobot1and2Rounder = Math.round(((resultYrobot1and2Round * resultYrobot1and2Round) / resultYrobot1and2Round) * 100.) / 100.;
