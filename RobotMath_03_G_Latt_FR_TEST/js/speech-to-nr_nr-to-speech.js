@@ -37,7 +37,7 @@ function recognitionStart() {
 }
 
 recognition.onresult = function(event) {
-  // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+  // SpeechRecognition -> SpeechRecognitionResultList object
   var valueXstudentResult = event.results[0][0].transcript;
   valueXstudent = (valueXstudentResult.replace(",", "."));
   diagnostic.textContent = valueXstudent;
@@ -45,16 +45,31 @@ recognition.onresult = function(event) {
   console.log('Confidence: ' + event.results[0][0].confidence);
 
   document.getElementById("IDvalueXstudentBig").innerHTML = valueXstudent;
-  document.getElementById("IDvalueTeacher1").value = valueXstudent;
-
-  //// DO THE MATH (function) ////
-  mathResult();
 
   // ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
   function mathResult(){
+
+    // ++++++++++++++++ MATH RESULT FURTHER VALIDATION AND FILTERS +++++++++++++++++++++ //
+
+    //// zero/Zero/ZERO detection to 0 ////
+    /// var stringResultLast = stringResultEval;
+    //// zéro to zero
+    var valueXstudentNormal = valueXstudent.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    console.log(valueXstudentNormal);
+
+    var pattern1 = /zero/i;
+    var stringResultLast1 = valueXstudentNormal.match(pattern1);
+    if (stringResultLast1 == 'zero' || stringResultLast1 == 'Zero' || stringResultLast1 == 'ZERO') {
+      stringResultLast2 = 0;
+    } else {
+      stringResultLast2 = valueXstudentNormal;
+    }
+   //// zero/Zero/ZERO detection -> 0 ////
+   document.getElementById("IDvalueTeacher1").value = stringResultLast2;
+
     //// var valueTeacher1 = document.getElementById('IDvalueTeacher1').value;
-    var valueTeacher1 = valueXstudent;
+    var valueTeacher1 = stringResultLast2;
     var operatorTeacher1 = document.getElementById('IDoperatorTeacher1').value;
     var valueTeacher2 = document.getElementById('IDvalueTeacher2').value;
 
@@ -63,40 +78,28 @@ recognition.onresult = function(event) {
     var valueTeacher1Num = parseFloat(valueTeacher1).toFixed(2);
     var valueTeacher2Num = parseFloat(valueTeacher2).toFixed(2);
 
-    var stringResult = valueTeacher1Num + ' ' + operatorTeacher1 + ' ' + valueTeacher2Num;
+    var mathResultResult = valueTeacher1Num + ' ' + operatorTeacher1 + ' ' + valueTeacher2Num;
+    console.log(mathResultResult);
 
-    // take out anything other than digits, (), -+/* and .
-    // https://stackoverflow.com/questions/6479236/calculate-string-value-in-javascript-not-using-eval
-    var stringResultReplace = stringResult.replace(/[^-()\d/*+.]/g, '');
-    //// alert(eval(str));
-    stringResultEval = eval(stringResultReplace);
-    //// document.getElementById('IDmathResult').innerHTML = stringResultEval;
+    //// take out anything other than digits, (), -+/* and . https://stackoverflow.com/questions/6479236/calculate-string-value-in-javascript-not-using-eval
+   var mathResultReplace = mathResultResult.replace(/[^-()\d/*+.]/g, '');
+   console.log(mathResultReplace);
 
-    //// zero/Zero/ZERO ---> 0 ////
-    let stringResultLast = stringResultEval;
- let stringResultLastNorm = stringResultLast.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-//// zero/Zero/ZERO ---> 0 ////
-   //// let stringResultLast = stringResultEval;
-   let pattern1 = /zero/i;
-   let stringResultLast1 = stringResultLastNorm.match(pattern1);
-   if (stringResultLast1 == "zero") {
-     stringResultLast2 = 0;
-   } else if (stringResultLast1 == "Zero") {
-         stringResultLast2 = 0;
-         } else if (stringResultLast1 == "ZERO") {
-           stringResultLast2 = 0;
-           } else {
-             stringResultLast2 = stringResultLastNorm;
-           }
-   //// zero/Zero/ZERO ---> 0 ////
-   document.getElementById('IDmathResult').innerHTML = stringResultLast2;
-
+   //// alert(eval(str));
+   var mathResultEval = eval(mathResultReplace);
+   console.log(mathResultEval);
 
     //// MISSCHIEN NOG NODIG ////
     //// resultYrobot1and2Rounder = Math.round(((resultYrobot1and2Round * resultYrobot1and2Round) / resultYrobot1and2Round) * 100.) / 100.;
+
+    //// OUTPUT to SPEAK without "zero" detection
+    //// document.getElementById('IDmathResult').innerHTML = stringResultEval;
+   //// OUTPUT to SPEAK with "zero" detection
+   document.getElementById('IDmathResult').innerHTML = mathResultEval;
   }
 
   //// VALIDATOR //// ! OPNIEUW INSTELLEN INDIEN BOVENSTAANDE WERKT !
+  /*
   function validate(value) {
     if (value == null || value == "") {
       alert("Required Field");
@@ -105,11 +108,14 @@ recognition.onresult = function(event) {
       alert("Must be a Number");
       return 0;
     } else return value;
-  }
+  */
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
   // ++++++++++++++++++++++++++++++ MATH ++++++++++++++++++++++++++++++++++ //
 
-  document.getElementById('IDmathResult').innerHTML = stringResultEval;
+  //// DO THE MATH (function) ////
+  mathResult();
+
+  //// document.getElementById('IDmathResult').innerHTML = stringResultEval;
   setTimeout(function(){
     speak();
   }, 2000);
@@ -126,27 +132,22 @@ document.getElementById("ButtonSpeak").click();
 
 recognition.onspeechend = function() {
   recognition.stop();
-  document.getElementById("IDmathResult").innerHTML = "S'il vous plaît, donnez-moi un nouveau numéro !";
   setTimeout(function(){
-    speak();
+    document.getElementById("IDmathResult").innerHTML = "S'il vous plaît, donnez-moi un nouveau numéro !";
+    //////// speak();
     //// document.getElementById("ButtonSpeak").click();
-  }, 10000); // Wait x seconds
-  setTimeout(function(){
     recognition.start();
-}, 12000); // Wait x seconds
+  }, 8000); // Wait x seconds
 }
 
 recognition.onnomatch = function(event) {
   recognition.stop();
   diagnostic.textContent = "Je n'ai pas reconnu ce numéro.";
-  document.getElementById("IDmathResult").innerHTML = "Je n'ai pas reconnu ce numéro.";
   setTimeout(function(){
+    document.getElementById("IDmathResult").innerHTML = "Je n'ai pas reconnu ce numéro.";
     speak();
     //// document.getElementById("ButtonSpeak").click();
-  }, 1000); // Wait x seconds
-  setTimeout(function(){
-    recognition.start();
-}, 2000); // Wait x seconds
+  }, 4000); // Wait x seconds
 }
 
 recognition.onerror = function(event) {
@@ -156,7 +157,7 @@ recognition.onerror = function(event) {
   setTimeout(function(){
     speak();
     //// document.getElementById("ButtonSpeak").click();
-  }, 1000); // Wait x seconds
+  }, 4000); // Wait x seconds
 }
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 // ++++++++++++++++++++++++++++++ SPEECH TO NUMBER ++++++++++++++++++++++++++++++++++ //
